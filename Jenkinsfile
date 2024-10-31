@@ -3,6 +3,7 @@ pipeline {
 
     stages {
         /*
+
         stage('Build') {
             agent {
                 docker {
@@ -22,6 +23,7 @@ pipeline {
             }
         }
         */
+
         stage('Test') {
             agent {
                 docker {
@@ -29,10 +31,10 @@ pipeline {
                     reuseNode true
                 }
             }
+
             steps {
                 sh '''
-                    echo "Test stage"
-                    test -f build/index.html
+                    #test -f build/index.html
                     npm test
                 '''
             }
@@ -41,10 +43,11 @@ pipeline {
         stage('E2E') {
             agent {
                 docker {
-                    image 'mcr.microsoft.com/playwright:v1.48.1-noble'
+                    image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
                     reuseNode true
                 }
             }
+
             steps {
                 sh '''
                     npm install serve
